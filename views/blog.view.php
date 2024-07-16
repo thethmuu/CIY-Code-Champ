@@ -2,14 +2,13 @@
 <?php require('partials/navbar.php') ?>
 
 <!-- main -->
-<main>
-    <div class="max-w-7xl mx-auto py-6">
-        <p>
-            <a href="/blogs">All blogs</a>
-        </p>
+<main class="flex-grow">
+    <div class="max-w-3xl mx-auto py-6">
 
-        <h2><?= $blog['title'] ?></h2>
-        <p><?= $blog['body'] ?></p>
+        <a class="link link-primary text-center w-full block" href="/blogs">All blogs</a>
+
+        <h2 class="text-center text-xl font-semibold text-gray-900 mt-6"><?= $blog['title'] ?></h2>
+        <p class="mt-4 text-gray-700 font-normal"><?= $blog['body'] ?></p>
     </div>
 </main>
 

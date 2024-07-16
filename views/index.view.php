@@ -2,7 +2,7 @@
 <?php require('partials/navbar.php') ?>
 
 <!-- main -->
-<main>
+<main class="flex-grow">
     Main
 </main>
 
