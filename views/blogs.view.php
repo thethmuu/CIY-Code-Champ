@@ -5,7 +5,11 @@
 <main class="flex-grow">
     <h2 class="text-center mt-4 text-lg font-medium text-gray-900">All Blog</h2>
 
-    <div class="max-w-7xl mx-auto py-6 flex gap-4 justify-center mt-2">
+    <div class="flex justify-center">
+        <a class="btn btn-sm btn-neutral mt-2" href="/blogs/create">Create Blog</a>
+    </div>
+
+    <div class="max-w-7xl mx-auto py-6 flex flex-wrap gap-6 justify-center mt-2">
         <?php foreach ($blogs as $blog) : ?>
             <article class="card bg-base-100 w-96 shadow-xl">
                 <div class="card-body">
