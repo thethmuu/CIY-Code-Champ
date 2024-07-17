@@ -6,8 +6,6 @@ $blog = $db->query('select * from blogs where id = :id', ['id' => $_GET['id']])-
 
 $current_user_id = 1;
 
-if ($blog['user_id'] !== $current_user_id) {
-    abort(Response::FORBIDDEN);
-}
+authorize($blog['user_id'] !== $current_user_id);
 
 require("views/blog-edit.view.php");
