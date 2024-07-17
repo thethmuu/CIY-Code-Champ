@@ -2,16 +2,7 @@
 
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 
-$routes = [
-    "/" => "controllers/index.php",
-    "/about" => "controllers/about.php",
-    "/contact" => "controllers/contact.php",
-    "/blog" => "controllers/blog.php",
-    "/blogs" => "controllers/blogs.php",
-    "/blogs/create" => "controllers/blog-create.php",
-    "/blogs/edit" => "controllers/blog-edit.php",
-    "/blogs/update" => "controllers/blog-update.php",
-];
+$routes = require("routes.php");
 
 function routeToController($uri, $routes)
 {
@@ -22,7 +13,7 @@ function routeToController($uri, $routes)
     }
 }
 
-function abort($code = 404)
+function abort($code = Response::NOT_FOUND)
 {
     http_response_code($code);
 
