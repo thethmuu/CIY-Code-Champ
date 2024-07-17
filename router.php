@@ -8,7 +8,8 @@ $routes = [
     "/contact" => "controllers/contact.php",
     "/blog" => "controllers/blog.php",
     "/blogs" => "controllers/blogs.php",
-    "/blogs/create" => "controllers/blog-create.php"
+    "/blogs/create" => "controllers/blog-create.php",
+    "/blogs/edit" => "controllers/blog-edit.php"
 ];
 
 function routeToController($uri, $routes)
@@ -16,12 +17,17 @@ function routeToController($uri, $routes)
     if (array_key_exists($uri, $routes)) {
         require $routes[$uri];
     } else {
-        http_response_code(404);
-
-        require "views/404.view.php";
-
-        die();
+        abort();
     }
+}
+
+function abort($code = 404)
+{
+    http_response_code($code);
+
+    return "views/{$code}.view.php";
+
+    die();
 }
 
 routeToController($uri, $routes);
