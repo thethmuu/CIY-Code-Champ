@@ -6,7 +6,7 @@
     <div class="container mx-auto">
 
 
-        <form method="post" class="max-w-lg mx-auto px-4 py-3 border shadow rounded space-y-3">
+        <form method="post" action="/blogs/update" class="max-w-lg mx-auto px-4 py-3 border shadow rounded space-y-3">
             <input type="hidden" name="_method" value="PATCH">
             <input type="hidden" name="id" value=<?= $blog['id'] ?>>
             <h2 class="text-center text-xl font-semibold text-gray-900">Edit blog</h2>

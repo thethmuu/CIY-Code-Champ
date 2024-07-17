@@ -9,7 +9,8 @@ $routes = [
     "/blog" => "controllers/blog.php",
     "/blogs" => "controllers/blogs.php",
     "/blogs/create" => "controllers/blog-create.php",
-    "/blogs/edit" => "controllers/blog-edit.php"
+    "/blogs/edit" => "controllers/blog-edit.php",
+    "/blogs/update" => "controllers/blog-update.php",
 ];
 
 function routeToController($uri, $routes)
