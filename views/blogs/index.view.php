@@ -1,5 +1,5 @@
-<?php require('partials/head.php') ?>
-<?php require('partials/navbar.php') ?>
+<?php require('views/partials/head.php') ?>
+<?php require('views/partials/navbar.php') ?>
 
 <!-- main -->
 <main class="flex-grow">
@@ -24,4 +24,4 @@
     </div>
 </main>
 
-<?php require('partials/footer.php') ?>
+<?php require('views/partials/footer.php') ?>

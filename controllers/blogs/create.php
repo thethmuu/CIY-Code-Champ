@@ -29,4 +29,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // dd($_SERVER['REQUEST_METHOD']);
 // dd($_POST);
 
-require("views/blog-create.view.php");
+require("views/blogs/create.view.php");
