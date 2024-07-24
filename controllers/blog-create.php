@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $validator = new Validator();
 
-    if (!$validator->string($_POST['body'], 1, 100)) {
+    if (!$validator::string($_POST['body'], 1, 100)) {
         $errors['body'] = 'body of no more than 100 words is required';
     }
 
