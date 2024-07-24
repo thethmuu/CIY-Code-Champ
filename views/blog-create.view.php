@@ -11,13 +11,21 @@
 
             <div class="">
                 <label for="name"> Title</label>
-                <input required class="input input-bordered input-sm w-full mt-1" type="text" id="name" name="title">
+                <input class="input input-bordered input-sm w-full mt-1" type="text" id="name" name="title">
             </div>
+
+            <?php if (isset($errors['title'])) : ?>
+                <li class="text-sm text-red-500 list-none"><?= $errors['title'] ?></li>
+            <?php endif; ?>
 
             <div class="">
                 <label for="body">Description</label>
-                <textarea required class="textarea textarea-bordered textarea-sm w-full mt-1" name="body" id="body"></textarea>
+                <textarea class="textarea textarea-bordered textarea-sm w-full mt-1" name="body" id="body"></textarea>
             </div>
+
+            <?php if (isset($errors['body'])) : ?>
+                <li class="text-sm text-red-500 list-none"><?= $errors['body'] ?></li>
+            <?php endif; ?>
 
             <button class="btn btn-sm btn-primary" type="submit">Save</button>
         </form>
