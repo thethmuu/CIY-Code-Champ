@@ -1,5 +1,9 @@
 <?php
 
+
+
+const BASE_PATH = __DIR__ . "/";
+
 function dd($value)
 {
     echo "<pre>";
@@ -20,3 +24,17 @@ function authorize($condition, $status = Response::FORBIDDEN)
         abort($status);
     }
 }
+
+function base_path($path)
+{
+    return BASE_PATH . $path;
+}
+
+function view($path, $attr = [])
+{
+    extract($attr);
+
+    require base_path('views/' . $path);
+}
+
+// dd(base_path('views/' . 'index.view.php'));
