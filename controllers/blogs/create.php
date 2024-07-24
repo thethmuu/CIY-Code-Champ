@@ -3,9 +3,9 @@ $config = require('config.php');
 $db = new Database($config['database']);
 
 require 'Validator.php';
+$errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $errors = [];
 
     // $validator = new Validator();
 
@@ -29,4 +29,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // dd($_SERVER['REQUEST_METHOD']);
 // dd($_POST);
 
-require("views/blogs/create.view.php");
+// require("views/blogs/create.view.php");
+view("blogs/create.view.php", ['errors' => $errors]);
