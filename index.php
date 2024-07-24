@@ -1,6 +1,10 @@
 <?php
 
 require 'functions.php';
-require 'Database.php';
-require 'Response.php';
+
+// autoload
+spl_autoload_register(function ($class) {
+    require base_path($class . ".php");
+});
+
 require 'router.php';
