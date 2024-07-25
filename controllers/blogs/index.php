@@ -4,6 +4,5 @@ $db = new Database($config['database']);
 
 $blogs = $db->query('select * from blogs where user_id = 1')->get();
 
-view('blogs/index.view.php', [
-    'blogs' => $blogs
-]);
+// require('views/blogs/index.view.php');
+view("blogs/index.view.php", ['blogs' => $blogs]);

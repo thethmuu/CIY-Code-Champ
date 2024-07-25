@@ -1,7 +1,5 @@
 <?php
 
-
-
 const BASE_PATH = __DIR__ . "/";
 
 function dd($value)
@@ -30,11 +28,12 @@ function base_path($path)
     return BASE_PATH . $path;
 }
 
-function view($path, $attr = [])
+// $attributes = ['blog' => $blog]
+// $blog = ...
+// $error = ...
+function view($path, $attributes = [])
 {
-    extract($attr);
+    extract($attributes);
 
     require base_path('views/' . $path);
 }
-
-// dd(base_path('views/' . 'index.view.php'));

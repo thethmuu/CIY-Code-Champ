@@ -4,4 +4,5 @@ $db = new Database($config['database']);
 
 $blog = $db->query('select * from blogs where id = :id', ['id' => $_GET['id']])->findOrFail();
 
-require('views/blogs/show.view.php');
+// require('views/blogs/show.view.php');
+view("blogs/show.view.php", ['blog' => $blog]);

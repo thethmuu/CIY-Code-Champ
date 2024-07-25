@@ -8,4 +8,5 @@ $current_user_id = 1;
 
 authorize($blog['user_id'] === $current_user_id);
 
-require("views/blogs/edit.view.php");
+// require("views/blogs/edit.view.php");
+view("blogs/edit.view.php", ['blog' => $blog]);
