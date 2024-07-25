@@ -11,6 +11,13 @@
 
         <h2 class="text-center text-xl font-semibold text-gray-900 mt-6"><?= $blog['title'] ?></h2>
         <p class="mt-4 text-gray-700 font-normal"><?= $blog['body'] ?></p>
+
+        <!-- <a href="/blog?id=<?= $blog['id'] ?>">Delete</a> -->
+
+        <form class="mt-6" method="POST">
+            <input type="hidden" name="id" value="<?= $blog['id'] ?>">
+            <button type="submit" class=" text-sm text-red-500">Delete</button>
+        </form>
     </div>
 </main>
 
