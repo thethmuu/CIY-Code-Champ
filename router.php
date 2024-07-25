@@ -1,5 +1,7 @@
 <?php
 
+use Core\Response;
+
 $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 
 $routes = require("routes.php");
@@ -23,3 +25,5 @@ function abort($code = Response::NOT_FOUND)
 }
 
 routeToController($uri, $routes);
+
+
