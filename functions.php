@@ -1,5 +1,7 @@
 <?php
 
+use Core\Response;
+
 const BASE_PATH = __DIR__ . "/";
 
 function dd($value)
