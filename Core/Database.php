@@ -11,8 +11,7 @@ class Database
 
     public function __construct($config, $username = 'root', $password = '')
     {
-        // $dsn = "mysql:host={$config['host']};port={$config['port']};dbname=blog;charset=utf8mb4";
-        $dsn = 'mysql:' . http_build_query($config, '', ';');
+        $dsn = "sqlite:db/blog.db";
 
         $this->connection = new PDO($dsn, $username, $password, [
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
