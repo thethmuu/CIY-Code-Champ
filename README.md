@@ -1,8 +1,3 @@
-# Source codes for projects in Code Champ Program
+# Our first React project
 
-Our tech stack: PHP, MySQL, Laravel, Vue.js, Tailwind
-
-## Projects Included in the Course
-
-- [PHP Blog](https://github.com/thethmuu/CIY-Code-Champ/tree/php-blog)
-- [Simple Reddit](https://github.com/thethmuu/CIY-Code-Champ/tree/reddit)
+Simple Reddit clone with Reddit API and React
