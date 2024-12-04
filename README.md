@@ -6,3 +6,4 @@ Our tech stack: PHP, MySQL, Laravel, Vue.js, Tailwind
 
 - [PHP Blog](https://github.com/thethmuu/CIY-Code-Champ/tree/php-blog)
 - [Simple Reddit](https://github.com/thethmuu/CIY-Code-Champ/tree/reddit)
+- [Hacker News](https://github.com/thethmuu/CIY-Code-Champ/tree/hacker-news)
