@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputWithLabel from "./components/InputWithLabel";
+import List from "./components/List";
 import useStorageState from "./hooks/useStorageState";
 
-const list = [
+const initialStories = [
     {
         title: "React",
         url: "https://reactjs.org/",
@@ -21,10 +22,20 @@ const list = [
     },
 ];
 
-function App() {
-    const [searchTerm, setSearchTerm] = useStorageState("search", "React");
+function fetchStories() {
+    // return Promise.resolve({ data: { stories: initialStories } });
+    return new Promise((resolve) => {
+        setTimeout(() => resolve({ data: { stories: initialStories } }), 3000);
+        // setTimeout(() => reject(), 3000);
+    });
+}
 
-    const [stories, setStories] = useState(list);
+function App() {
+    const [searchTerm, setSearchTerm] = useStorageState("search", "");
+
+    const [stories, setStories] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isError, setIsError] = useState(false);
 
     const searchItems = stories.filter((item) => {
         return item.title.toLowerCase().includes(searchTerm.toLowerCase());
@@ -41,6 +52,20 @@ function App() {
         setSearchTerm(event.target.value);
     }
 
+    useEffect(() => {
+        setIsLoading(true);
+        fetchStories()
+            .then((result) => {
+                setStories(result.data.stories);
+            })
+            .catch(() => {
+                setIsError(true);
+            })
+            .finally(() => {
+                setIsLoading(false);
+            });
+    }, []);
+
     return (
         <div>
             <h1>My Hacker News</h1>
@@ -55,47 +80,14 @@ function App() {
 
             <hr />
 
-            <List list={searchItems} handleRemoveItem={handleRemoveItem} />
+            {isError && <p>Something went wrong!</p>}
+
+            {isLoading ? (
+                <p>Loading...</p>
+            ) : (
+                <List list={searchItems} handleRemoveItem={handleRemoveItem} />
+            )}
         </div>
-    );
-}
-
-function List({ list, handleRemoveItem }) {
-    // spread
-    // {...obj}
-
-    return (
-        <ul>
-            {list.map((item) => {
-                return (
-                    <Item
-                        key={item.objectID}
-                        item={item}
-                        handleRemoveItem={handleRemoveItem}
-                    />
-                );
-            })}
-        </ul>
-    );
-}
-
-// jsx('Item', {key: item.objectID, url: url, author: author})
-
-function Item({ item, handleRemoveItem }) {
-    return (
-        <li>
-            <span>
-                <a href={item.url}>{item.title}</a>
-            </span>
-            <span>{item.author}</span>
-            <span>{item.num_comments}</span>
-            <span>{item.points}</span>
-            <span>
-                <button type="button" onClick={() => handleRemoveItem(item)}>
-                    Remove
-                </button>
-            </span>
-        </li>
     );
 }
 
