@@ -1,6 +1,6 @@
 # Source codes for projects in Code Champ Program
 
-Our tech stack: PHP, MySQL, Laravel, Vue.js, Tailwind
+Our tech stack: PHP, MySQL, Laravel, React.js, Tailwind
 
 ## Projects Included in the Course
 
