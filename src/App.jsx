@@ -1,70 +1,91 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useReducer } from "react";
 import InputWithLabel from "./components/InputWithLabel";
 import List from "./components/List";
 import useStorageState from "./hooks/useStorageState";
+import axios from "axios";
 
-const initialStories = [
-    {
-        title: "React",
-        url: "https://reactjs.org/",
-        author: "Jordan Walke",
-        num_comments: 3,
-        points: 4,
-        objectID: 0,
-    },
-    {
-        title: "Redux",
-        url: "https://redux.js.org/",
-        author: "Dan Abramov, Andrew Clark",
-        num_comments: 2,
-        points: 5,
-        objectID: 1,
-    },
-];
+const storiesReducer = (state, action) => {
+    switch (action.type) {
+        case "STORIES_FETCH_START":
+            return {
+                ...state,
+                isLoading: true,
+                isError: false,
+            };
+        case "STORIES_FETCH_SUCCESS":
+            return {
+                ...state,
+                isLoading: false,
+                isError: false,
+                data: action.payload,
+            };
+        case "STORIES_FETCH_FAILURE":
+            return {
+                ...state,
+                isLoading: false,
+                isError: true,
+            };
+        case "REMOVE_STORY":
+            return {
+                ...state,
+                data: state.data.filter(
+                    (story) => story.objectID !== action.payload.objectID
+                ),
+            };
+        default:
+            throw new Error();
+    }
+};
 
-function fetchStories() {
-    // return Promise.resolve({ data: { stories: initialStories } });
-    return new Promise((resolve) => {
-        setTimeout(() => resolve({ data: { stories: initialStories } }), 3000);
-        // setTimeout(() => reject(), 3000);
-    });
-}
+const API_ENDPOINT = "https://hn.algolia.com/api/v1/search?query=";
 
 function App() {
     const [searchTerm, setSearchTerm] = useStorageState("search", "");
 
-    const [stories, setStories] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [isError, setIsError] = useState(false);
+    const [stories, dispatchStories] = useReducer(storiesReducer, {
+        data: [],
+        isLoading: false,
+        isError: false,
+    });
 
-    const searchItems = stories.filter((item) => {
-        return item.title.toLowerCase().includes(searchTerm.toLowerCase());
+    const searchItems = stories.data.filter((item) => {
+        return item.title?.toLowerCase().includes(searchTerm.toLowerCase());
     });
 
     function handleRemoveItem(item) {
-        const newStories = stories.filter((story) => {
-            return story.objectID !== item.objectID;
+        // setStories(newStories);
+        dispatchStories({
+            type: "REMOVE_STORY",
+            payload: item,
         });
-        setStories(newStories);
     }
 
     function handleSearch(event) {
         setSearchTerm(event.target.value);
     }
 
-    useEffect(() => {
-        setIsLoading(true);
-        fetchStories()
+    // memo(r)ized function
+    const fetchStories = useCallback(() => {
+        if (searchTerm === "") return;
+        dispatchStories({ type: "STORIES_FETCH_START" });
+
+        axios
+            .get(API_ENDPOINT + searchTerm)
             .then((result) => {
-                setStories(result.data.stories);
+                dispatchStories({
+                    type: "STORIES_FETCH_SUCCESS",
+                    payload: result.data.hits,
+                });
+                // setStories(result.data.stories)
             })
             .catch(() => {
-                setIsError(true);
-            })
-            .finally(() => {
-                setIsLoading(false);
+                dispatchStories({ type: "STORIES_FETCH_FAILURE" });
             });
-    }, []);
+    }, [searchTerm]);
+
+    useEffect(() => {
+        fetchStories();
+    }, [fetchStories]);
 
     return (
         <div>
@@ -80,9 +101,9 @@ function App() {
 
             <hr />
 
-            {isError && <p>Something went wrong!</p>}
+            {stories.isError && <p>Something went wrong!</p>}
 
-            {isLoading ? (
+            {stories.isLoading ? (
                 <p>Loading...</p>
             ) : (
                 <List list={searchItems} handleRemoveItem={handleRemoveItem} />
