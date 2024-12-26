@@ -11,7 +11,9 @@ function SearchForm({ handleSubmit, searchTerm, handleSearch }) {
                 <strong>Search: </strong>
             </InputWithLabel>
 
-            <button disabled={!searchTerm}>Search</button>
+            <button type="submit" disabled={!searchTerm}>
+                Search
+            </button>
         </form>
     );
 }

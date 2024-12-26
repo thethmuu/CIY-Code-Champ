@@ -1,6 +1,6 @@
+import { sortBy } from "lodash";
 import { useState } from "react";
 import Item from "./Item";
-import { sortBy } from "lodash";
 
 const SORTS_MAP = {
     NONE: (list) => list,
@@ -20,16 +20,24 @@ export default function List({ list, handleRemoveItem }) {
         <ul>
             <li style={{ display: "flex" }}>
                 <span style={{ width: "40%" }}>
-                    <button onClick={() => setSort("TITLE")}>Title</button>
+                    <button type="button" onClick={() => setSort("TITLE")}>
+                        Title
+                    </button>
                 </span>
                 <span style={{ width: "30%" }}>
-                    <button onClick={() => setSort("AUTHOR")}>Author</button>
+                    <button type="button" onClick={() => setSort("AUTHOR")}>
+                        Author
+                    </button>
                 </span>
                 <span style={{ width: "10%" }}>
-                    <button onClick={() => setSort("COMMENT")}>Comments</button>
+                    <button type="button" onClick={() => setSort("COMMENT")}>
+                        Comments
+                    </button>
                 </span>
                 <span style={{ width: "10%" }}>
-                    <button onClick={() => setSort("POINT")}>Points</button>
+                    <button type="button" onClick={() => setSort("POINT")}>
+                        Points
+                    </button>
                 </span>
                 <span style={{ width: "10%" }}>Actions</span>
             </li>
