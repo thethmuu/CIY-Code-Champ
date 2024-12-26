@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useReducer } from "react";
-import InputWithLabel from "./components/InputWithLabel";
+import { useCallback, useEffect, useReducer, useState } from "react";
 import List from "./components/List";
 import useStorageState from "./hooks/useStorageState";
 import axios from "axios";
+import SearchForm from "./components/SearchForm";
 
 const storiesReducer = (state, action) => {
     switch (action.type) {
@@ -41,6 +41,7 @@ const API_ENDPOINT = "https://hn.algolia.com/api/v1/search?query=";
 
 function App() {
     const [searchTerm, setSearchTerm] = useStorageState("search", "");
+    const [url, setUrl] = useState(API_ENDPOINT);
 
     const [stories, dispatchStories] = useReducer(storiesReducer, {
         data: [],
@@ -66,11 +67,11 @@ function App() {
 
     // memo(r)ized function
     const fetchStories = useCallback(() => {
-        if (searchTerm === "") return;
+        // if (searchTerm === "") return;
         dispatchStories({ type: "STORIES_FETCH_START" });
 
         axios
-            .get(API_ENDPOINT + searchTerm)
+            .get(url)
             .then((result) => {
                 dispatchStories({
                     type: "STORIES_FETCH_SUCCESS",
@@ -81,23 +82,27 @@ function App() {
             .catch(() => {
                 dispatchStories({ type: "STORIES_FETCH_FAILURE" });
             });
-    }, [searchTerm]);
+    }, [url]);
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+
+        setUrl(API_ENDPOINT + searchTerm);
+    };
 
     useEffect(() => {
         fetchStories();
     }, [fetchStories]);
 
     return (
-        <div>
-            <h1>My Hacker News</h1>
+        <div className="container">
+            <h1 className="headline-primary">My Hacker News</h1>
 
-            <InputWithLabel
-                value={searchTerm}
-                handleInputChange={handleSearch}
-                id="search"
-            >
-                <strong>Search: </strong>
-            </InputWithLabel>
+            <SearchForm
+                handleSearch={handleSearch}
+                handleSubmit={handleSubmit}
+                searchTerm={searchTerm}
+            />
 
             <hr />
 
